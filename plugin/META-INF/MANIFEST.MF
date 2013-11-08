@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Builder Pattern Eclipse Plugin
-Bundle-SymbolicName: bpep;singleton:=true
+Bundle-Name: Fluent Builder Generator Eclipse Plugin
+Bundle-SymbolicName: fbgep;singleton:=true
 Bundle-Version: 1.0.0.SNAPSHOT
 Bundle-Activator: no.bekk.boss.bpep.Activator
 Require-Bundle: org.eclipse.ui,

@@ -8,7 +8,7 @@
          <action
                class="no.bekk.boss.bpep.popup.actions.GenerateBuilderAction"
                id="bpep.popup.action.invoke"
-               label="Generate Builder Pattern Code"
+               label="Generate Fluent Builder"
                menubarPath="org.eclipse.jdt.ui.source.menu/generateGroup">
          </action>
       </viewerContribution>
@@ -29,7 +29,7 @@
 			class="no.bekk.boss.bpep.popup.actions.GenerateBuilderAction"
 			definitionId="bpep.invoke"
 			id="bpep.popup.action.invoke"
-			label="Generate Builder Pattern Code"
+			label="Generate Fluent Builder"
 			menubarPath="org.eclipse.jdt.ui.source.menu/generateGroup">
 		</action>
 	</actionSet>
@@ -37,7 +37,7 @@
    <extension point="org.eclipse.ui.bindings">
       <key commandId="bpep.invoke"
            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-           sequence="CTRL+ALT+B">
+           sequence="CTRL+ALT+SHIFT+B">
       </key>
    </extension>
    <extension point="org.eclipse.ui.commands">
@@ -45,25 +45,4 @@
                name="Generate Builder Pattern">
       </command>
    </extension>
-   <!--
-   <extension
-         id="bpep.generatebuilder.actions"
-         name="Generate Builder Code Action"
-         point="org.eclipse.ui.actionSets">
-         <actionSet id="bpep.actionset"
-            label="BPEP Actions"
-            visible="true">
-            <menu
-				label="&amp;Source"
-				path="edit"
-				id="org.eclipse.jdt.ui.source.menu">
-			</menu>
-            <action id="bpep.generatebuilder"
-                label="Generate Builder Pattern"
-                icon="src/main/resources/icons/bpep.gif"
-                tooltip="Generate Builder Pattern Code"
-                class="no.bekk.boss.bpep.popup.actions.GenerateBuilderAction">
-            </action>
-         </actionSet>
-   </extension>-->
 </plugin>
