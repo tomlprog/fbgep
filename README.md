@@ -11,6 +11,10 @@ This project is a Eclipse plugin that automates the writing of these builders. W
 ## Download
 [Download the latest version](https://raw.github.com/coffeedriven/bpep/master/web/fbgep_1.0.0.SNAPSHOT.jar)
 
+## Update site
+
+Latest version of plugin is available via update [site](http://coffeedriven.org/fgbep/update).
+
 ## Installation procedure
 1. Download the jar file
 1. Put the jar file in the eclipse/dropins directory

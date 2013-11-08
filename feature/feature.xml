@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="bpep_feature"
+      id="fbgep_feature"
       label="Builder Pattern Generator"
       version="1.0.0">
 
-   <description url="http://coffeedriven.org/bpep">
+   <description url="http://coffeedriven.org/fbgep">
       Code generator plugin for Eclipse to create builder pattern code.
    </description>
 
@@ -38,11 +38,11 @@ OTHER DEALINGS IN THE SOFTWARE.
    </license>
 
    <url>
-      <update label="Builder Pattern Generator Update Site" url="http://coffeedriven.org/bpep"/>
+      <update label="Fluent Builder Generator Update Site" url="http://coffeedriven.org/fbgep/update"/>
    </url>
 
    <plugin
-         id="bpep"
+         id="fbgep"
          download-size="0"
          install-size="0"
          version="0.0.0"
