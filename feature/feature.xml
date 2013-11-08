@@ -4,16 +4,16 @@
       label="Builder Pattern Generator"
       version="1.0.0">
 
-   <description url="http://boss.bekk.no/bpep">
+   <description url="http://coffeedriven.org/bpep">
       Code generator plugin for Eclipse to create builder pattern code.
    </description>
 
-   <copyright url="http://boss.bekk.no">
-      Copright &amp;copy; 2008 BEKK Open Source (BOSS)
+   <copyright url="http://coffeedriven.org">
+      Copright &amp;copy; 2013 Coffeedriven
    </copyright>
 
    <license url="http://en.wikipedia.org/wiki/MIT_License">
-Copyright (c) 2008 Henning Jensen, Rune Flobakk
+Copyright (c) 2013 Maciej Dzikowicki
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -38,7 +38,7 @@ OTHER DEALINGS IN THE SOFTWARE.
    </license>
 
    <url>
-      <update label="Builder Pattern Generator Update Site" url="http://boss.bekk.no/bpep/update"/>
+      <update label="Builder Pattern Generator Update Site" url="http://coffeedriven.org/bpep"/>
    </url>
 
    <plugin

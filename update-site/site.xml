@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description url="http://boss.bekk.no/bpep/update">
+   <description url="http://coffeedriven.org/bpep/update">
       Builder Pattern Generator
    </description>
    <feature url="features/bpep_feature_1.0.0.jar" id="bpep_feature" version="1.0.0">

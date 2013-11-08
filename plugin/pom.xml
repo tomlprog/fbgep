@@ -18,9 +18,6 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-            <resource>
-                <directory>src/test/resources</directory>
-            </resource>
             <!-- TODO: this causes eclipse to be confused about the build path.
             <resource>
                 <directory>../update-site</directory>
