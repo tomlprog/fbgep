@@ -9,7 +9,7 @@ The Builder Pattern was first introduced by Joshua Bloch at JavaOne 2007. It's a
 This project is a Eclipse plugin that automates the writing of these builders. With just two clicks you can generate all the builder code you need.
 
 ## Download
-[Download the latest version](https://s3-eu-west-1.amazonaws.com/bpep.files/bpep_1.0.0.SNAPSHOT.jar)
+[Download the latest version](https://raw.github.com/coffeedriven/bpep/master/web/bpep_1.0.0.SNAPSHOT.jar)
 
 ## Installation procedure
 1. Download the jar file
@@ -18,11 +18,11 @@ This project is a Eclipse plugin that automates the writing of these builders. W
 ## Usage
 In the eclipse java editor window, right click and select Source -> Generate Builder Pattern Code.
 
-![Context menu](https://s3-eu-west-1.amazonaws.com/bpep.files/usage-context-menu-option.jpg)
+![Context menu](https://raw.github.com/coffeedriven/bpep/master/web//usage-context-menu-option.jpg)
 
 Then select which fields you want to expose in the builder.
 
-![Selection window](https://s3-eu-west-1.amazonaws.com/bpep.files/usage-selection-window.jpg)
+![Selection window](https://raw.github.com/coffeedriven/bpep/master/web/usage-selection-window.jpg)
 
 ## Contributing
 1. Fork this project
