@@ -1,4 +1,4 @@
-# Builder Pattern Eclipse Plugin
+# Fluent Builder Generator Eclipse Plugin
 
 ## About
 
