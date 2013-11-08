@@ -13,7 +13,7 @@ This project is a Eclipse plugin that automates the writing of these builders. W
 
 ## Update site
 
-Latest version of plugin is available via update [site](http://coffeedriven.org/fgbep/update).
+Latest version of plugin is available via update [site](http://coffeedriven.org/fbgep/update).
 
 ## Installation procedure
 1. Download the jar file
