@@ -31,7 +31,7 @@ public class CreateDialog extends AbstractModalDialog {
     public void show(final ICompilationUnit compilationUnit) throws JavaModelException {
         final Shell shell = new Shell(getParent(), SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.CENTER);
 
-        shell.setText("Generate Builder Pattern Code");
+        shell.setText("Generate Fluent Builder");
 
         shell.setLayout(new GridLayout(2, false));
 
@@ -54,13 +54,8 @@ public class CreateDialog extends AbstractModalDialog {
         optionGridData.horizontalAlignment = SWT.FILL;
 		optionGroup.setLayoutData(optionGridData);
 
-        createCreateClassConstructorOption(optionGroup);
-
-        final Button createBuilderConstructor = new Button(optionGroup, SWT.RADIO);
-        createBuilderConstructor.setText("Create constructor in builder");
-
         final Button createCopyConstructorButton = new Button(optionGroup, SWT.CHECK);
-        createCopyConstructorButton.setSelection(true);
+        createCopyConstructorButton.setSelection(false);
         createCopyConstructorButton.setText("Create copy constructor in builder");
 
         final Button formatSourceButton = new Button(optionGroup, SWT.CHECK);
@@ -86,7 +81,6 @@ public class CreateDialog extends AbstractModalDialog {
 					}
 
 					Generator generator = new BuilderGenerator.Builder() //
-							.createBuilderConstructor(createBuilderConstructor.getSelection()) //
 							.createCopyConstructor(createCopyConstructorButton.getSelection()) //
 							.formatSource(formatSourceButton.getSelection()) //
 							.build();
@@ -137,12 +131,6 @@ public class CreateDialog extends AbstractModalDialog {
 		btnSelectNone.addSelectionListener(new FieldSelectionAdapter(fieldButtons, false));
 	}
 
-	private void createCreateClassConstructorOption(Group optionGroup) {
-		final Button createClassConstructor = new Button(optionGroup, SWT.RADIO);
-		createClassConstructor.setSelection(true);
-		createClassConstructor.setText("Create class constructor");
-	}
-	
 	private class FieldSelectionAdapter extends SelectionAdapter {
 		private final List<Button> buttons;
 		private final boolean checked;

@@ -5,6 +5,7 @@ import static no.bekk.boss.bpep.resolver.Resolver.getType;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -26,9 +27,6 @@ import org.eclipse.text.edits.TextEdit;
 
 public class BuilderGenerator implements Generator {
 
-	private static final String BUILDER_METHOD_PARAMETER_SUFFIX = "Param";
-
-	private final boolean createBuilderConstructor;
 	private final boolean createCopyConstructor;
 	private final boolean formatSource;
 
@@ -37,32 +35,30 @@ public class BuilderGenerator implements Generator {
 		try {
 			removeOldClassConstructor(cu);
 			removeOldBuilderClass(cu);
+			
+			IType clazz = cu.getTypes()[0];
+			String clazzName = clazz.getElementName();
+            String builderClassName = clazzName + "Builder";
 
 			IBuffer buffer = cu.getBuffer();
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
 			pw.println();
-			pw.println("public static class Builder {");
+			pw.println("public static class " + builderClassName + " {");
 
-			IType clazz = cu.getTypes()[0];
 
 			int pos = clazz.getSourceRange().getOffset() + clazz.getSourceRange().getLength() - 1;
 
 			createFieldDeclarations(pw, fields);
 
 			if (createCopyConstructor) {
-				createCopyConstructor(pw, clazz, fields);
+				createCopyConstructor(pw, clazz, fields, builderClassName);
 			}
 
-			createBuilderMethods(pw, fields);
-			if (createBuilderConstructor) {
-				createPrivateBuilderConstructor(pw, clazz, fields);
-				pw.println("}");
-			} else {
-				createClassBuilderConstructor(pw, clazz, fields);
-				pw.println("}");
-				createClassConstructor(pw, clazz, fields);
-			}
+			createBuilderMethods(pw, fields, builderClassName);
+			createPrivateBuilderConstructor(pw, clazz, fields);
+			createStaticBuilderMethod(pw, clazz, builderClassName);
+			pw.println("}");
 			
 			if (formatSource) {
 				pw.println();
@@ -106,10 +102,10 @@ public class BuilderGenerator implements Generator {
 		}
 	}
 
-	private void createCopyConstructor(PrintWriter pw, IType clazz, List<IField> fields) {
+	private void createCopyConstructor(PrintWriter pw, IType clazz, List<IField> fields, String builderClassName) {
 		String clazzName = clazz.getElementName();
-		pw.println("public Builder(){}");
-		pw.println("public Builder(" + clazzName + " bean){");
+		pw.println("public " + builderClassName + "(){}");
+		pw.println("public " + builderClassName + "(" + clazzName + " bean){");
 		for (IField field : fields) {
 			pw.println("this." + getName(field) + "=bean." + getName(field)
 					+ ";");
@@ -118,40 +114,32 @@ public class BuilderGenerator implements Generator {
 
 	}
 
-	private void createClassConstructor(PrintWriter pw, IType clazz, List<IField> fields) throws JavaModelException {
-		String clazzName = clazz.getElementName();
-		pw.println(clazzName + "(Builder builder){");
-		for (IField field : fields) {
-			pw.println("this." + getName(field) + "=builder." + getName(field) + ";");
-		}
-		pw.println("}");
-	}
-
-	private void createClassBuilderConstructor(PrintWriter pw, IType clazz, List<IField> fields) {
-		String clazzName = clazz.getElementName();
-		pw.println("public " + clazzName + " build(){");
-		pw.println("return new " + clazzName + "(this);\n}");
-	}
-
 	private void createPrivateBuilderConstructor(PrintWriter pw, IType clazz, List<IField> fields) {
-		String clazzName = clazz.getElementName();
-		String clazzVariable = clazzName.substring(0, 1).toLowerCase() + clazzName.substring(1);
-		pw.println("public " + clazzName + " build(){");
-		pw.println(clazzName + " " + clazzVariable + "=new " + clazzName + "();");
-		for (IField field : fields) {
-			String name = getName(field);
-			pw.println(clazzVariable + "." + name + "=" + name + ";");
-		}
-		pw.println("return " + clazzVariable + ";\n}");
-	}
+        String clazzName = clazz.getElementName();
+        pw.println("public " + clazzName + " build(){");
+        pw.println("return new " + clazzName +"(");
+        Iterator<IField> iterator = fields.iterator();
+        while(iterator.hasNext()) {
+            IField field = iterator.next();
+            String name = getName(field);
+            pw.print(name);
+            if (iterator.hasNext()) {
+                pw.print(",");
+            }
+            
+        }
+        pw.println(");");
+        pw.println("}");
+    }
 
-	private void createBuilderMethods(PrintWriter pw, List<IField> fields) throws JavaModelException {
+	private void createBuilderMethods(PrintWriter pw, List<IField> fields, String builderClassName) throws JavaModelException {
 		for (IField field : fields) {
 			String fieldName = getName(field);
 			String fieldType = getType(field);
 			String baseName = getFieldBaseName(fieldName);
-			String parameterName = baseName + BUILDER_METHOD_PARAMETER_SUFFIX;
-			pw.println("public Builder " + baseName + "(" + fieldType + " " + parameterName + ") {");
+			String parameterName = baseName;
+			String methodNameSuffix = baseName.substring(0, 1).toUpperCase() + baseName.substring(1);
+			pw.println("public " + builderClassName + " with" + methodNameSuffix + "(" + fieldType + " " + parameterName + ") {");
 			pw.println("this." + fieldName + "=" + parameterName + ";");
 			pw.println("return this;\n}");
 		}
@@ -164,19 +152,21 @@ public class BuilderGenerator implements Generator {
 
 	private void createFieldDeclarations(PrintWriter pw, List<IField> fields) throws JavaModelException {
 		for (IField field : fields) {
-			pw.println(getType(field) + " " + getName(field) + ";");
+			pw.println("private " + getType(field) + " " + getName(field) + ";");
 		}
 	}
+	
+	private void createStaticBuilderMethod(PrintWriter pw, IType clazz, String builderClassName)
+    {
+        String clazzName = clazz.getElementName();
+        String methodName = clazzName.substring(0, 1).toLowerCase() + clazzName.substring(1);
+        pw.println("public static " + builderClassName + " " + methodName + "(){");
+        pw.println("return new " + builderClassName + "();\n}");
+    }
 
 	public static class Builder {
-		boolean createBuilderConstructor;
 		boolean createCopyConstructor;
 		boolean formatSource;
-
-		public Builder createBuilderConstructor(boolean createBuilderConstructorParam) {
-			this.createBuilderConstructor = createBuilderConstructorParam;
-			return this;
-		}
 
 		public Builder createCopyConstructor(boolean createCopyConstructorParam) {
 			this.createCopyConstructor = createCopyConstructorParam;
@@ -194,7 +184,6 @@ public class BuilderGenerator implements Generator {
 	}
 
 	BuilderGenerator(Builder builder) {
-		this.createBuilderConstructor = builder.createBuilderConstructor;
 		this.createCopyConstructor = builder.createCopyConstructor;
 		this.formatSource = builder.formatSource;
 	}
