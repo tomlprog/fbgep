@@ -9,6 +9,8 @@ The Builder Pattern was first introduced by Joshua Bloch at JavaOne 2007. It's a
 This project is a Eclipse plugin that automates the writing of these builders. With just two clicks you can generate all the builder code you need.
 
 ## Download
+Place plugin in dropins directory of your Eclipse.
+
 [Download the latest version](https://raw.github.com/coffeedriven/bpep/master/web/fbgep_1.0.0.SNAPSHOT.jar)
 
 ## Update site
