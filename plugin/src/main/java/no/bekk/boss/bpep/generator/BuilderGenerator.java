@@ -57,8 +57,8 @@ public class BuilderGenerator implements Generator {
 
 			createBuilderMethods(pw, fields, builderClassName);
 			createPrivateBuilderConstructor(pw, clazz, fields);
-			createStaticBuilderMethod(pw, clazz, builderClassName);
 			pw.println("}");
+			createStaticBuilderMethod(pw, clazz, builderClassName);
 			
 			if (formatSource) {
 				pw.println();
