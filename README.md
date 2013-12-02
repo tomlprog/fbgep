@@ -22,7 +22,7 @@ Latest version of plugin is available via update [site](http://coffeedriven.org/
 1. Put the jar file in the eclipse/dropins directory
 
 ## Usage
-In the eclipse java editor window, right click and select Source -> Generate Builder Pattern Code.
+In the eclipse java editor window, right click and select Source -> Generate Builder Pattern Code (or use CTRL+SHIFT+ALT+B).
 
 ![Context menu](https://raw.github.com/coffeedriven/bpep/master/web/usage-context-menu-option.jpg)
 
