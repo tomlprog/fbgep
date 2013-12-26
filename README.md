@@ -37,6 +37,6 @@ Then select which fields you want to expose in the builder.
 
 ### Making changes
 1. Checkout the project
-1. Run `mvn eclipse:eclipse` inside the bpep/plugin directory to create the Eclipse project files
-1. In Eclipse, run File | Import... | General > Existing Projects into Workspace | Select root directory > The directory into which you checked out the bpep project. Select bpep and click Finish.
+1. Run `mvn eclipse:eclipse` inside the fbgep/plugin directory to create the Eclipse project files
+1. In Eclipse, run File | Import... | General > Existing Projects into Workspace | Select root directory > The directory into which you checked out the fbgep project. Select fbgep and click Finish.
 1. Finally, if you haven't used Maven and Eclipse together before, [setup the M2_REPO variable](http://www.mkyong.com/maven/how-to-configure-m2_repo-variable-in-eclipse-ide/). 
