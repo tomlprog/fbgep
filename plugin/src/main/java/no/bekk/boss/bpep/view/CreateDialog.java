@@ -54,8 +54,12 @@ public class CreateDialog extends AbstractModalDialog {
         optionGridData.horizontalAlignment = SWT.FILL;
 		optionGroup.setLayoutData(optionGridData);
 
+        final Button useWithPrefixButton = new Button(optionGroup, SWT.CHECK);
+        useWithPrefixButton.setSelection(false);
+        useWithPrefixButton.setText("Use 'with' prefix for builder method names");
+
         final Button createCopyConstructorButton = new Button(optionGroup, SWT.CHECK);
-        createCopyConstructorButton.setSelection(false);
+        createCopyConstructorButton.setSelection(true);
         createCopyConstructorButton.setText("Create copy constructor in builder");
 
         final Button formatSourceButton = new Button(optionGroup, SWT.CHECK);
@@ -81,6 +85,7 @@ public class CreateDialog extends AbstractModalDialog {
 					}
 
 					Generator generator = new BuilderGenerator.Builder() //
+							.useWithPrefix(useWithPrefixButton.getSelection()) //
 							.createCopyConstructor(createCopyConstructorButton.getSelection()) //
 							.formatSource(formatSourceButton.getSelection()) //
 							.build();

@@ -7,12 +7,12 @@
     <artifactId>fbgep</artifactId>
     <packaging>jar</packaging>
     <name>Fluent Builder Generator Eclipse Plugin</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <description>
         Fluent Builder generator plugin for the Eclipse IDE
     </description>
     <inceptionYear>2013</inceptionYear>
-    <url>http://github.com/coffeedriven/fbgep</url>
+    <url>http://github.com/tomlprog/fbgep</url>
     <build>
         <resources>
             <resource>

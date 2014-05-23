@@ -29,6 +29,7 @@ public class BuilderGenerator implements Generator {
 
 	private final boolean createCopyConstructor;
 	private final boolean formatSource;
+	private final boolean useWithPrefix;
 
 	public void generate(ICompilationUnit cu, List<IField> fields) {
 
@@ -38,7 +39,7 @@ public class BuilderGenerator implements Generator {
 			
 			IType clazz = cu.getTypes()[0];
 			String clazzName = clazz.getElementName();
-            String builderClassName = clazzName + "Builder";
+            String builderClassName = /*clazzName +*/ "Builder";
 
 			IBuffer buffer = cu.getBuffer();
 			StringWriter sw = new StringWriter();
@@ -138,10 +139,31 @@ public class BuilderGenerator implements Generator {
 			String fieldType = getType(field);
 			String baseName = getFieldBaseName(fieldName);
 			String parameterName = baseName;
-			String methodNameSuffix = baseName.substring(0, 1).toUpperCase() + baseName.substring(1);
-			pw.println("public " + builderClassName + " with" + methodNameSuffix + "(" + fieldType + " " + parameterName + ") {");
+			if ( this.useWithPrefix ) {
+				String methodNameSuffix = baseName.substring(0, 1).toUpperCase() + baseName.substring(1);
+				pw.println("public " + builderClassName + " with" + methodNameSuffix + "(" + fieldType + " " + parameterName + ") {");
+			} else {
+				pw.println("public " + builderClassName + " " + baseName + "(" + fieldType + " " + parameterName + ") {");
+			}
 			pw.println("this." + fieldName + "=" + parameterName + ";");
 			pw.println("return this;\n}");
+
+//
+//			pw.println("/*\nfieldName="+fieldName);
+//			IType fieldIType = field.getType(fieldName, 1);
+//			pw.println("fieldType="+fieldIType);
+//			pw.println("fieldType.classFile="+fieldIType.getClassFile());
+//			pw.println("fieldType.compilationUnit="+fieldIType.getCompilationUnit());
+//			pw.println("ftfqn="+Arrays.deepToString(fieldIType.resolveType(fieldName)));
+//			pw.println("fttqn="+JavaModelUtil.getResolvedTypeName(field.getTypeSignature(), fieldIType));
+//			pw.println("TypeSignature="+field.getTypeSignature());
+//			pw.println("SignatureSimpleName="+Signature.getSignatureSimpleName(field.getTypeSignature()));
+//			pw.println("TypeParameters="+Arrays.asList(Signature.getTypeArguments(field.getTypeSignature())));
+//			pw.println("TypeArguments="+Arrays.asList(Signature.getTypeArguments(field.getTypeSignature())));
+//			pw.println("TypeErasure="+Signature.getTypeErasure(field.getTypeSignature()));
+//			ITypeRoot typeRoot = field.getTypeRoot();
+//			pw.println("TypeRoot="+typeRoot);
+//			pw.println("*/");
 		}
 	}
 
@@ -159,14 +181,25 @@ public class BuilderGenerator implements Generator {
 	private void createStaticBuilderMethod(PrintWriter pw, IType clazz, String builderClassName)
     {
         String clazzName = clazz.getElementName();
-        String methodName = clazzName.substring(0, 1).toLowerCase() + clazzName.substring(1);
+//        String methodName = clazzName.substring(0, 1).toLowerCase() + clazzName.substring(1);
+		String methodName = "builder";
         pw.println("public static " + builderClassName + " " + methodName + "(){");
         pw.println("return new " + builderClassName + "();\n}");
+        if ( this.createCopyConstructor ) {
+            pw.println("public static " + builderClassName + " " + methodName + "("+clazzName+" bean){");
+            pw.println("return new " + builderClassName + "(bean);\n}");
+        }
     }
 
 	public static class Builder {
+		boolean useWithPrefix;
 		boolean createCopyConstructor;
 		boolean formatSource;
+
+		public Builder useWithPrefix(boolean useWithPrefixParam) {
+			this.useWithPrefix = useWithPrefixParam;
+			return this;
+		}
 
 		public Builder createCopyConstructor(boolean createCopyConstructorParam) {
 			this.createCopyConstructor = createCopyConstructorParam;
@@ -184,6 +217,7 @@ public class BuilderGenerator implements Generator {
 	}
 
 	BuilderGenerator(Builder builder) {
+		this.useWithPrefix = builder.useWithPrefix;
 		this.createCopyConstructor = builder.createCopyConstructor;
 		this.formatSource = builder.formatSource;
 	}
