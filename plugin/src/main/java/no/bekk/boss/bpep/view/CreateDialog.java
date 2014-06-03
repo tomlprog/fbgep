@@ -55,12 +55,24 @@ public class CreateDialog extends AbstractModalDialog {
 		optionGroup.setLayoutData(optionGridData);
 
         final Button useWithPrefixButton = new Button(optionGroup, SWT.CHECK);
-        useWithPrefixButton.setSelection(false);
+        useWithPrefixButton.setSelection(true);
         useWithPrefixButton.setText("Use 'with' prefix for builder method names");
+
+        final Button generateAddedRemovedMethodsForCollections = new Button(optionGroup, SWT.CHECK);
+        generateAddedRemovedMethodsForCollections.setSelection(true);
+        generateAddedRemovedMethodsForCollections.setText("Create 'Added' and 'Removed' methods for Collection fields");
+
+        final Button generateVarargMethodsForCollections = new Button(optionGroup, SWT.CHECK);
+        generateVarargMethodsForCollections.setSelection(true);
+        generateVarargMethodsForCollections.setText("Create vararg methods for Collection fields");
 
         final Button createCopyConstructorButton = new Button(optionGroup, SWT.CHECK);
         createCopyConstructorButton.setSelection(true);
         createCopyConstructorButton.setText("Create copy constructor in builder");
+
+        final Button createBuildFactoryMethodOnBeanButton = new Button(optionGroup, SWT.CHECK);
+        createBuildFactoryMethodOnBeanButton.setSelection(true);
+        createBuildFactoryMethodOnBeanButton.setText("Create build factory method on bean");
 
         final Button formatSourceButton = new Button(optionGroup, SWT.CHECK);
         formatSourceButton.setSelection(true);
@@ -86,7 +98,10 @@ public class CreateDialog extends AbstractModalDialog {
 
 					Generator generator = new BuilderGenerator.Builder() //
 							.useWithPrefix(useWithPrefixButton.getSelection()) //
+							.generateAddedRemovedMethodsForCollections(generateAddedRemovedMethodsForCollections.getSelection()) //
+							.generateVarargMethodsForCollections(generateVarargMethodsForCollections.getSelection()) //
 							.createCopyConstructor(createCopyConstructorButton.getSelection()) //
+							.createBuildFactoryMethodOnBean(createBuildFactoryMethodOnBeanButton.getSelection()) //
 							.formatSource(formatSourceButton.getSelection()) //
 							.build();
 					generator.generate(compilationUnit, selectedFields);
