@@ -3,16 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: fbgep;singleton:=true
 Bundle-Version: 1.1.0
+Bundle-ClassPath: .
 Bundle-Activator: no.bekk.boss.bpep.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
- org.eclipse.jdt.core,
- org.eclipse.jdt.ui,
- org.eclipse.ui.forms,
- org.eclipse.ui.ide,
- org.eclipse.text
-Eclipse-LazyStart: false
 Export-Package: icons,
  no.bekk.boss.bpep,
  no.bekk.boss.bpep.example,
@@ -22,4 +14,12 @@ Export-Package: icons,
  no.bekk.boss.bpep.resolver,
  no.bekk.boss.bpep.test,
  no.bekk.boss.bpep.view
-Bundle-ClassPath: .
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.ui,
+ org.eclipse.ui.forms,
+ org.eclipse.ui.ide,
+ org.eclipse.text
+Eclipse-LazyStart: false
